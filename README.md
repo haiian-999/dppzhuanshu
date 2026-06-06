@@ -1,0 +1,521 @@
+[index.html.html](https://github.com/user-attachments/files/28667926/index.html.html)
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>合规学术改写助手</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --ink: #172033;
+      --muted: #667085;
+      --panel: #ffffff;
+      --line: #d9deea;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --green: #0f9f6e;
+      --orange: #d97706;
+      --shadow: 0 18px 46px rgba(23, 32, 51, .1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 8%, rgba(37, 99, 235, .12), transparent 22rem),
+        radial-gradient(circle at 86% 10%, rgba(15, 159, 110, .12), transparent 20rem),
+        var(--bg);
+    }
+
+    .app {
+      width: min(1280px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 32px;
+      display: grid;
+      gap: 18px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 850px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    .badge {
+      align-self: start;
+      border: 1px solid rgba(15, 159, 110, .22);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #05704c;
+      background: rgba(15, 159, 110, .09);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .control {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+      box-shadow: 0 10px 24px rgba(23, 32, 51, .05);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #344054;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    select, input {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: #fbfcff;
+      font: inherit;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .panel {
+      min-height: 620px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcff;
+    }
+
+    .panel-title {
+      font-weight: 900;
+    }
+
+    .counter {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100%;
+      border: 0;
+      resize: none;
+      padding: 18px;
+      color: var(--ink);
+      font: 16px/1.78 "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      outline: none;
+    }
+
+    .output {
+      padding: 18px;
+      overflow: auto;
+      line-height: 1.82;
+      font-size: 16px;
+      white-space: pre-wrap;
+    }
+
+    .empty {
+      color: var(--muted);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      padding: 14px 16px;
+      border-top: 1px solid var(--line);
+      background: #fbfcff;
+    }
+
+    button {
+      min-height: 46px;
+      border: 0;
+      border-radius: 8px;
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .secondary {
+      color: var(--blue-dark);
+      background: #eef4ff;
+      border: 1px solid #bfd2ff;
+    }
+
+    .danger {
+      color: #a34100;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .report {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--panel);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #344054;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 8px;
+    }
+
+    .mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .warn .mark { background: var(--orange); }
+
+    @media (max-width: 900px) {
+      header, .workspace, .report { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr 1fr; }
+      .panel { min-height: 520px; }
+    }
+
+    @media (max-width: 560px) {
+      .app { width: min(100% - 18px, 1280px); padding-top: 14px; }
+      .toolbar, .actions { grid-template-columns: 1fr; }
+      .badge { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div>
+        <h1>合规学术改写助手</h1>
+        <p class="subtitle">把原文放进去，工具会按“理解原意、重组句式、补充分析、保留术语、提醒引用”的规则生成更自然的学术表达。请把它当作写作辅助，引用来源仍然要按学校要求标注。</p>
+      </div>
+      <div class="badge">本地运行 · 不上传内容</div>
+    </header>
+
+    <section class="toolbar" aria-label="改写设置">
+      <div class="control">
+        <label for="mode">改写方式</label>
+        <select id="mode">
+          <option value="balanced">平衡改写</option>
+          <option value="expand">扩展分析</option>
+          <option value="concise">精简凝练</option>
+          <option value="literature">文献综述式</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="field">学科语气</label>
+        <select id="field">
+          <option value="general">通用学术</option>
+          <option value="economics">经管社科</option>
+          <option value="education">教育研究</option>
+          <option value="engineering">工科技术</option>
+          <option value="medical">医学健康</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="citation">引用处理</label>
+        <select id="citation">
+          <option value="keep">保留原有引用</option>
+          <option value="hint">添加引用提示</option>
+          <option value="none">暂不处理</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="topic">论文主题/对象</label>
+        <input id="topic" placeholder="如：数字经济、乡村振兴、大学生就业" />
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">需要改写的文字</span>
+          <span class="counter" id="inputCount">0 字</span>
+        </div>
+        <textarea id="input" placeholder="粘贴一段需要改写的论文文字。建议一次放 100-500 字，效果更稳。"></textarea>
+        <div class="actions">
+          <button id="rewriteBtn" type="button">生成改写</button>
+          <button class="secondary" id="sampleBtn" type="button">插入示例</button>
+          <button class="danger" id="clearBtn" type="button">清空</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">改写结果</span>
+          <span class="counter" id="outputCount">0 字</span>
+        </div>
+        <div class="output empty" id="output">生成后会显示在这里。</div>
+        <div class="actions">
+          <button id="copyBtn" type="button">复制结果</button>
+          <button class="secondary" id="altBtn" type="button">换一种写法</button>
+          <button class="secondary" id="downloadBtn" type="button">下载文本</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="report">
+      <div class="card">
+        <h2>改写规则</h2>
+        <ul class="list">
+          <li><span class="mark">1</span><span>优先改变论述顺序，而不是简单替换同义词。</span></li>
+          <li><span class="mark">2</span><span>保留必要专业术语，避免把概念改错。</span></li>
+          <li><span class="mark">3</span><span>把结论拆成“背景、机制、影响、本文关注点”。</span></li>
+          <li><span class="mark">4</span><span>对来源观点保留引用提示，防止变成不当挪用。</span></li>
+        </ul>
+      </div>
+      <div class="card warn">
+        <h2>使用提醒</h2>
+        <ul class="list">
+          <li><span class="mark">!</span><span>这个工具不承诺规避查重，只帮助你合规重写和完善表达。</span></li>
+          <li><span class="mark">!</span><span>涉及定义、数据、他人观点和经典表述时，仍然需要标注来源。</span></li>
+          <li><span class="mark">!</span><span>最终提交前请逐句核对事实、术语和引用格式。</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const inputCount = document.getElementById("inputCount");
+    const outputCount = document.getElementById("outputCount");
+    const mode = document.getElementById("mode");
+    const field = document.getElementById("field");
+    const citation = document.getElementById("citation");
+    const topic = document.getElementById("topic");
+
+    const phraseMap = [
+      ["能够", "可以"],
+      ["促进", "推动"],
+      ["提升", "提高"],
+      ["降低", "减少"],
+      ["影响", "作用"],
+      ["发展", "演进"],
+      ["重要", "关键"],
+      ["表明", "说明"],
+      ["认为", "指出"],
+      ["由于", "在……背景下"],
+      ["因此", "由此可见"],
+      ["同时", "此外"],
+      ["主要", "较为集中"],
+      ["问题", "现实困境"],
+      ["措施", "实践路径"],
+      ["机制", "作用过程"]
+    ];
+
+    const connectors = {
+      general: ["从整体上看", "进一步而言", "在这一过程中", "基于上述逻辑"],
+      economics: ["从资源配置角度看", "在市场运行过程中", "就产业结构而言", "从制度环境来看"],
+      education: ["从教育实践看", "在学习支持体系中", "就学生发展而言", "从教学组织角度看"],
+      engineering: ["从技术实现角度看", "在系统运行过程中", "就工程应用而言", "从功能逻辑来看"],
+      medical: ["从健康干预角度看", "在临床或公共卫生情境中", "就风险控制而言", "从作用路径来看"]
+    };
+
+    const sample = "数字经济的发展能够促进产业结构升级，并通过提高资源配置效率推动经济高质量发展。随着数字技术在生产、流通和消费环节的广泛应用，传统产业的组织方式和运行效率也会发生变化。";
+
+    function countText(text) {
+      return text.replace(/\s/g, "").length;
+    }
+
+    function splitSentences(text) {
+      return text
+        .replace(/\s+/g, " ")
+        .split(/(?<=[。！？；;.!?])/)
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function softenSentence(sentence) {
+      let result = sentence;
+      phraseMap.forEach(([from, to]) => {
+        result = result.replaceAll(from, to);
+      });
+      return result;
+    }
+
+    function topicText() {
+      const value = topic.value.trim();
+      return value ? `围绕“${value}”这一研究对象，` : "";
+    }
+
+    function citationText() {
+      if (citation.value === "keep") return "（请保留并核对原文对应引用）";
+      if (citation.value === "hint") return "（此处涉及已有研究观点，建议补充文献引用）";
+      return "";
+    }
+
+    function buildRewrite() {
+      const raw = input.value.trim();
+      if (!raw) return "";
+
+      const sentences = splitSentences(raw);
+      const softened = sentences.map(softenSentence);
+      const lead = connectors[field.value][Math.floor(Math.random() * connectors[field.value].length)];
+      const cite = citationText();
+      const topicLead = topicText();
+
+      if (mode.value === "concise") {
+        return `${lead}，${topicLead}${softened.join("").replace(/。/g, "，").replace(/，$/, "")}。${cite}`;
+      }
+
+      if (mode.value === "expand") {
+        const core = softened.join("");
+        return `${lead}，${topicLead}原有观点可以进一步理解为：${core}\n\n更具体地说，该过程并非单一因素直接产生结果，而是通过改变主体行为、资源配置方式和外部环境约束来发挥作用。因此，在论文写作中可将其放入“背景条件—作用机制—现实影响”的框架中展开分析。${cite}`;
+      }
+
+      if (mode.value === "literature") {
+        const first = softened[0] || raw;
+        const rest = softened.slice(1).join("");
+        return `已有研究通常从多个角度讨论这一问题。${first}${rest ? `与此相关，${rest}` : ""}\n\n综合来看，相关观点的共同之处在于强调变量之间并不是简单并列关系，而是存在一定的作用链条。${topicLead}本文可在此基础上进一步关注其具体表现、适用条件及可能局限。${cite}`;
+      }
+
+      const reversed = softened.length > 1 ? [softened[softened.length - 1], ...softened.slice(0, -1)] : softened;
+      return `${lead}，${topicLead}${reversed.join("")}\n\n换言之，原段落所强调的重点可以概括为：相关因素通过改变运行条件和行为方式，对后续结果产生持续影响。为了增强论文表达的独立性，后续可结合研究样本、案例或变量设置进一步说明。${cite}`;
+    }
+
+    function rewrite() {
+      const text = buildRewrite();
+      if (!text) {
+        output.textContent = "请先粘贴需要改写的文字。";
+        output.classList.add("empty");
+      } else {
+        output.textContent = text;
+        output.classList.remove("empty");
+      }
+      updateCounts();
+    }
+
+    function updateCounts() {
+      inputCount.textContent = `${countText(input.value)} 字`;
+      outputCount.textContent = `${output.classList.contains("empty") ? 0 : countText(output.textContent)} 字`;
+    }
+
+    function bindButton(id, handler) {
+      const button = document.getElementById(id);
+      let lastTap = 0;
+      const run = event => {
+        if (event) event.preventDefault();
+        const now = Date.now();
+        if (now - lastTap < 260) return;
+        lastTap = now;
+        handler();
+      };
+      button.addEventListener("click", run);
+      button.addEventListener("touchend", run, { passive: false });
+    }
+
+    bindButton("rewriteBtn", rewrite);
+    bindButton("altBtn", rewrite);
+    bindButton("sampleBtn", () => {
+      input.value = sample;
+      updateCounts();
+    });
+    bindButton("clearBtn", () => {
+      input.value = "";
+      output.textContent = "生成后会显示在这里。";
+      output.classList.add("empty");
+      updateCounts();
+    });
+    bindButton("copyBtn", async () => {
+      if (output.classList.contains("empty")) return;
+      await navigator.clipboard.writeText(output.textContent);
+    });
+    bindButton("downloadBtn", () => {
+      if (output.classList.contains("empty")) return;
+      const blob = new Blob([output.textContent], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "学术改写结果.txt";
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    input.addEventListener("input", updateCounts);
+    updateCounts();
+  </script>
+</body>
+</html>
